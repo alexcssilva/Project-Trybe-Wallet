@@ -41,9 +41,9 @@ class Login extends React.Component {
       email: true,
       login: true,
     });
-    const { saveEmail, history } = this.props;
+    const { setEmail, history } = this.props;
     const { email } = this.state;
-    saveEmail(email);
+    setEmail(email);
     history.push('/carteira');
   };
 
@@ -89,11 +89,11 @@ class Login extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  saveEmail: (email) => dispatch(setPersonalUser(email)),
+  setEmail: (email) => dispatch(setPersonalUser(email)),
 });
 
 Login.propTypes = {
-  saveEmail: PropTypes.string,
+  setEmail: PropTypes.string,
   history: PropTypes.shape({
     push: PropTypes.func,
   }),
