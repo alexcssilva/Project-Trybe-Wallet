@@ -9,6 +9,7 @@ class Wallet extends React.Component {
     super();
     this.state = {
       totalExpense: 0,
+      id: 0,
       value: 0,
       description: '',
       currency: 'USD',
@@ -16,7 +17,6 @@ class Wallet extends React.Component {
       tag: 'Alimentação',
       exchangeRates: {},
       currentList: [],
-      id: 0,
     };
   }
 
