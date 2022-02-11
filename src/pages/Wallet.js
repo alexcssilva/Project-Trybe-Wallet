@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { setPersonalWallet } from '../actions';
 import { fecthCurrentApi } from '../services/fetchCurrent';
+import Table from '../components/Table';
 
 class Wallet extends React.Component {
   constructor() {
@@ -170,6 +171,9 @@ class Wallet extends React.Component {
             </button>
           </label>
         </form>
+        <div>
+          <Table />
+        </div>
       </div>);
   }
 }
