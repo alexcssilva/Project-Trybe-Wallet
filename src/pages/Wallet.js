@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { setPersonalWallet } from '../actions';
-import fecthCurrentApi from '../services/fetchCurrent';
+import { fecthCurrentApi } from '../services/fetchCurrent';
 
 class Wallet extends React.Component {
   constructor() {
@@ -16,6 +16,7 @@ class Wallet extends React.Component {
       tag: 'Alimentação',
       exchangeRates: {},
       currentList: [],
+      id: 0,
     };
   }
 
@@ -36,24 +37,38 @@ class Wallet extends React.Component {
 
   handleClick = (event) => {
     event.preventDefault();
-    const {
-      value,
-      description,
-      currency,
-      method,
-      tag,
-    } = this.state;
+
     const { setExpenses } = this.props;
-    setExpenses({
-      value,
-      description,
-      currency,
-      method,
-      tag,
-    });
-    this.setState({
-      value: 0,
-    });
+    fecthCurrentApi().then((walletApi) => this.setState({
+      exchangeRates: walletApi,
+    }, () => {
+      const {
+        id,
+        value,
+        description,
+        currency,
+        method,
+        tag,
+        exchangeRates,
+      } = this.state;
+
+      const askValue = exchangeRates[currency].ask;
+      console.log(askValue, value);
+      setExpenses({
+        id,
+        value,
+        description,
+        currency,
+        method,
+        tag,
+        exchangeRates,
+      });
+      this.setState((preventState) => ({
+        value: 0,
+        totalExpense: preventState.totalExpense + (value * askValue),
+        id: preventState.id + 1,
+      }));
+    }));
   }
 
   render() {
@@ -62,7 +77,6 @@ class Wallet extends React.Component {
       totalExpense,
       value,
       description,
-      currency,
       method,
       tag,
       currentList,
@@ -79,7 +93,7 @@ class Wallet extends React.Component {
         </div>
         <form className="form-class">
           <label htmlFor="value-input">
-            <p>Valor da Despesa</p>
+            Valor da Despesa
             <input
               data-testid="value-input"
               type="number"
@@ -90,7 +104,7 @@ class Wallet extends React.Component {
             />
           </label>
           <label htmlFor="description-input">
-            <p>Descrição da Despesa</p>
+            Descrição da Despesa
             <input
               data-testid="description-input"
               type="text"
@@ -101,14 +115,13 @@ class Wallet extends React.Component {
             />
           </label>
           <label htmlFor="currency-input">
-            <p>Moeda Registrada</p>
+            Moeda Registrada
             <select
               data-testid="currency-input"
-              type="text"
-              value={ currency }
               name="currency"
               onChange={ this.handleChance }
               aria-label="moeda"
+              id="currency-input"
             >
               {currentList && currentList.map((coins) => (
                 <option
@@ -128,10 +141,11 @@ class Wallet extends React.Component {
               onChange={ this.handleChance }
               value={ method }
               name="method"
+              aria-label="method"
             >
-              <option value="Alimentação">Dinheiro</option>
-              <option value="Cartão-de-crédito">Cartão de crédito</option>
-              <option value="Cartão-de-débito">Cartão de débito</option>
+              <option value="Dinheiro">Dinheiro</option>
+              <option value="Cartão de crédito">Cartão de crédito</option>
+              <option value="Cartão de débito">Cartão de débito</option>
             </select>
           </label>
           <label htmlFor="tag-input">
@@ -166,6 +180,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => ({
   getEmail: state.user.email,
+  getWallet: state.wallet.expenses,
 });
 
 Wallet.propTypes = {
