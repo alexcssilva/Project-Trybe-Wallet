@@ -54,7 +54,6 @@ class Wallet extends React.Component {
       } = this.state;
 
       const askValue = exchangeRates[currency].ask;
-      console.log(askValue, value);
       setExpenses({
         id,
         value,
@@ -89,7 +88,7 @@ class Wallet extends React.Component {
           <header>
             <p data-testid="email-field">{getEmail}</p>
           </header>
-          <p data-testid="total-field">{totalExpense}</p>
+          <p data-testid="total-field">{totalExpense.toFixed(2)}</p>
           <p data-testid="header-currency-field">BRL</p>
         </div>
         <form className="form-class">

@@ -24,7 +24,7 @@ const mockedExchange = jest.spyOn(global, 'fetch').mockImplementation(() => apiR
 
 afterEach(() => jest.clearAllMocks());
 
-describe.only('2 - Crie uma página para sua carteira com as seguintes características:', () => {
+describe('2 - Crie uma página para sua carteira com as seguintes características:', () => {
   test('A rota para esta página deve ser \'/carteira\'', () => {
     const { history } = renderWithRouterAndStore(<App />);
     history.push('/carteira');
@@ -38,7 +38,7 @@ describe.only('2 - Crie uma página para sua carteira com as seguintes caracter�
   });
 });
 
-describe.only('3 - Crie um header para a página de carteira contendo as seguintes características:', () => {
+describe('3 - Crie um header para a página de carteira contendo as seguintes características:', () => {
   const initial = initialStateHeader;
 
   test('Um elemento que exiba o email do usuário que fez login.', () => {
@@ -66,22 +66,22 @@ describe.only('3 - Crie um header para a página de carteira contendo as seguint
   });
 });
 
-describe.only('4 - Desenvolva um formulário para adicionar uma despesa contendo as seguintes características:', () => {
-  test.only('Um campo para adicionar o valor da despesa', async () => {
+describe('4 - Desenvolva um formulário para adicionar uma despesa contendo as seguintes características:', () => {
+  test('Um campo para adicionar o valor da despesa', async () => {
     renderWithRouterAndStore(<Wallet />, '/carteira');
     const valueInput = await screen.findByTestId(VALUE_INPUT_TEST_ID);
 
     expect(valueInput).toBeInTheDocument();
   });
 
-  test.only('Um campo para adicionar a descrição da despesa', async () => {
+  test('Um campo para adicionar a descrição da despesa', async () => {
     renderWithRouterAndStore(<Wallet />, '/carteira');
     const descriptionInput = await screen.findByTestId(DESCRIPTION_INPUT_TEST_ID);
 
     expect(descriptionInput).toBeInTheDocument();
   });
 
-  test.only('Um campo para selecionar em qual moeda será registrada a despesa', async () => {
+  test('Um campo para selecionar em qual moeda será registrada a despesa', async () => {
     renderWithRouterAndStore(<Wallet />, '/carteira');
     const currencyInput = await screen.findByTestId(CURRENCY_INPUT_TEST_ID);
 
@@ -89,7 +89,7 @@ describe.only('4 - Desenvolva um formulário para adicionar uma despesa contendo
 
   });
 
-  test.only('Um campo para selecionar qual método de pagamento será utilizado', async () => {
+  test('Um campo para selecionar qual método de pagamento será utilizado', async () => {
     renderWithRouterAndStore(<Wallet />, '/carteira');
     const methodInput = await screen.findByTestId(METHOD_INPUT_TEST_ID);
     const moneyOption = screen.getByText(/Dinheiro/);
@@ -102,7 +102,7 @@ describe.only('4 - Desenvolva um formulário para adicionar uma despesa contendo
     expect(debitOption).toBeInTheDocument();
   });
 
-  test.only('Um campo para selecionar uma categoria (tag) para a despesa.', async () => {
+  test('Um campo para selecionar uma categoria (tag) para a despesa.', async () => {
     renderWithRouterAndStore(<Wallet />, '/carteira');
     const tagInput = await screen.findByTestId(TAG_INPUT_TEST_ID);
     const foodOption = screen.getByText(/Alimentação/);
@@ -119,7 +119,7 @@ describe.only('4 - Desenvolva um formulário para adicionar uma despesa contendo
     expect(healthOption).toBeInTheDocument();
   });
 
-  test.only('Um botão com o texto \'Adicionar despesa\' que salva as informações da despesa no estado global e atualiza a soma de despesas no header', async () => {
+  test('Um botão com o texto \'Adicionar despesa\' que salva as informações da despesa no estado global e atualiza a soma de despesas no header', async () => {
     const { store } = renderWithRouterAndStore(<Wallet />, '/carteira');
     const addButton = await screen.findByText(/Adicionar despesa/i);
     const valueInput = await screen.findByTestId(VALUE_INPUT_TEST_ID);
@@ -194,7 +194,7 @@ describe.only('4 - Desenvolva um formulário para adicionar uma despesa contendo
   });
 });
 
-describe.only('5 - Implemente a lógica para preencher as opções do campo "Moedas", buscando as siglas das moedas da API', () => {
+describe('5 - Implemente a lógica para preencher as opções do campo "Moedas", buscando as siglas das moedas da API', () => {
   test('O campo para selecionar em qual moeda será registrada a despesa tem as opções corretas', async () => {
     renderWithRouterAndStore(<Wallet />, '/carteira');
     const currencyInput = await screen.findByRole('combobox', {
@@ -217,7 +217,7 @@ describe.only('5 - Implemente a lógica para preencher as opções do campo "Moe
   });
 });
 
-describe.only('6 - Desenvolva uma tabela com os gastos contendo as seguintes características:', () => {
+describe('6 - Desenvolva uma tabela com os gastos contendo as seguintes características:', () => {
   const initial = initialStateWithExpenses;
 
   test('A tabela deve possuir um cabeçalho com os campos Descrição, Tag, Método de pagamento, Valor, Moeda, Câmbio utilizado, Valor convertido e Moeda de conversão', () => {
