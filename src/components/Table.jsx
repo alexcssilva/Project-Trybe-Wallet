@@ -58,3 +58,5 @@ Table.propTypes = {
 }.isRequired;
 
 export default connect(mapStateToProps)(Table);
+
+// Auxiliado pelo o colega de turma William Alves e Jonatas Lima Turma 17
